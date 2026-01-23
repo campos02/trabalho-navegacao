@@ -14,7 +14,7 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core)
 
 add_executable(trabalho-navegacao
   main.cpp
-
+  dijkstra.h
   cidade.h
 )
 target_link_libraries(trabalho-navegacao PRIVATE Qt${QT_VERSION_MAJOR}::Core)
