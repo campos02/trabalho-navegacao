@@ -1,19 +1,52 @@
-#include <QCoreApplication>
+#include <QFile>
+#include <QDebug>
+#include <QByteArray>
+#include <QTextStream>
+
+#include <QJsonParseError>
+#include <QJsonDocument>
+#include <QJsonArray>
+#include <QJsonObject>
+
+#include <stdlib.h>
+#include "cidade.h"
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication a(argc, argv);
+    QFile file;
+    file.setFileName("nodes.json");
 
-    // Set up code that uses the Qt event loop here.
-    // Call a.quit() or a.exit() to quit the application.
-    // A not very useful example would be including
-    // #include <QTimer>
-    // near the top of the file and calling
-    // QTimer::singleShot(5000, &a, &QCoreApplication::quit);
-    // which quits the application after 5 seconds.
+    if (!file.open(QIODevice::ReadOnly)) {
+        qDebug() << "Json file couldn't be opened/found";
+        return 1;
+    }
 
-    // If you do not need a running Qt event loop, remove the call
-    // to a.exec() or use the Non-Qt Plain C++ Application template.
+    QByteArray byteArray = file.readAll();
+    file.close();
 
-    return a.exec();
+    QJsonParseError parseError;
+    QJsonDocument jsonDoc = QJsonDocument::fromJson(byteArray, &parseError);
+
+    if (parseError.error != QJsonParseError::NoError) {
+        qWarning() << "Parse error at " << parseError.offset << ":" << parseError.errorString();
+        return 1;
+    }
+
+    QJsonArray cidadesJson = jsonDoc.array();
+    QTextStream textStream(stdout);
+
+    Cidade* cidades = (Cidade*)malloc(cidadesJson.size() * sizeof(Cidade));
+
+    for (int i = 0; i < cidadesJson.size(); i++) {
+        QJsonObject cidadeJson = cidadesJson[i].toObject();
+        cidades[i].id = cidadeJson.value("id").toInt();
+        cidades[i].x = cidadeJson.value("x").toDouble();
+        cidades[i].y = cidadeJson.value("y").toDouble();
+
+        textStream << cidades[i].id << Qt::endl;
+        textStream << cidades[i].x << Qt::endl;
+        textStream << cidades[i].y << Qt::endl << Qt::endl;
+    }
+
+    free(cidades);
 }
