@@ -15,11 +15,11 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core)
 add_executable(trabalho-navegacao
   main.cpp
   dijkstra.h
-  cidade.h
+  vertice.h
 
   ler_dados.h
   ler_dados.cpp
-  cidades.h
+  vertices.h
 )
 target_link_libraries(trabalho-navegacao PRIVATE Qt${QT_VERSION_MAJOR}::Core)
 

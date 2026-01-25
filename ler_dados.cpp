@@ -8,17 +8,17 @@
 #include <QJsonObject>
 #include <QJsonParseError>
 
-#include "cidades.h"
+#include "vertices.h"
 
-Cidades ler_cidades(QFile* file) {
-    Cidades cidades;
-    cidades.quantidade = 0;
-    cidades.cidades = NULL;
+Vertices ler_vertices(QFile* file) {
+    Vertices vertices;
+    vertices.quantidade = 0;
+    vertices.vertices = NULL;
 
     file->setFileName("nodes.json");
     if (!file->open(QIODevice::ReadOnly)) {
         qDebug() << "Json file couldn't be opened/found";
-        return cidades;
+        return vertices;
     }
 
     QByteArray byteArray = file->readAll();
@@ -29,25 +29,25 @@ Cidades ler_cidades(QFile* file) {
 
     if (parseError.error != QJsonParseError::NoError) {
         qWarning() << "Parse error at " << parseError.offset << ":" << parseError.errorString();
-        return cidades;
+        return vertices;
     }
 
-    QJsonArray cidadesJson = jsonDoc.array();
+    QJsonArray verticesJson = jsonDoc.array();
     QTextStream textStream(stdout);
 
-    cidades.quantidade = cidadesJson.size();
-    cidades.cidades = (Cidade *) malloc(cidades.quantidade * sizeof(Cidade));
+    vertices.quantidade = verticesJson.size();
+    vertices.vertices = (Vertice *) malloc(vertices.quantidade * sizeof(Vertice));
 
-    for (int i = 0; i < cidadesJson.size(); i++) {
-        QJsonObject cidadeJson = cidadesJson[i].toObject();
-        cidades.cidades[i].id = (uint64_t) cidadeJson.value("id").toInteger();
-        cidades.cidades[i].x = cidadeJson.value("x").toDouble();
-        cidades.cidades[i].y = cidadeJson.value("y").toDouble();
+    for (int i = 0; i < verticesJson.size(); i++) {
+        QJsonObject verticeJson = verticesJson[i].toObject();
+        vertices.vertices[i].id = (uint64_t) verticeJson.value("id").toInteger();
+        vertices.vertices[i].x = verticeJson.value("x").toDouble();
+        vertices.vertices[i].y = verticeJson.value("y").toDouble();
 
-        textStream << cidades.cidades[i].id << Qt::endl;
-        textStream << cidades.cidades[i].x << Qt::endl;
-        textStream << cidades.cidades[i].y << Qt::endl << Qt::endl;
+        textStream << vertices.vertices[i].id << Qt::endl;
+        textStream << vertices.vertices[i].x << Qt::endl;
+        textStream << vertices.vertices[i].y << Qt::endl << Qt::endl;
     }
 
-    return cidades;
+    return vertices;
 }

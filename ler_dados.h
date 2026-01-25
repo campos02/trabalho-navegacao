@@ -2,8 +2,8 @@
 #define LER_DADOS_H
 
 #include <QFile>
-#include "cidades.h"
+#include "vertices.h"
 
-Cidades ler_cidades(QFile* file);
+Vertices ler_vertices(QFile* file);
 
 #endif // LER_DADOS_H

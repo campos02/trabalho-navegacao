@@ -4,6 +4,6 @@
 int main(int argc, char *argv[])
 {
     QFile file;
-    Cidades cidades = ler_cidades(&file);
-    free(cidades.cidades);
+    Vertices vertices = ler_vertices(&file);
+    free(vertices.vertices);
 }
