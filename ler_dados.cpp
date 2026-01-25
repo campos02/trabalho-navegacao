@@ -47,7 +47,13 @@ Vertices ler_vertices(QFile* file) {
     for (int i = 0; i < verticesJson.size(); i++) {
         QJsonObject verticeJson = verticesJson[i].toObject();
         uint64_t id = (uint64_t) verticeJson.value("id").toInteger();
-        int indice = indice_por_id(&vertices, id);
+        int indice = id % vertices.quantidade;
+
+        if (vertices.vertices[indice].id != 0)
+            indice /= 2;
+
+        while (indice < vertices.quantidade - 1 && vertices.vertices[indice].id != 0)
+            indice++;
 
         vertices.vertices[indice].id = id;
         vertices.vertices[indice].x = verticeJson.value("x").toDouble();
