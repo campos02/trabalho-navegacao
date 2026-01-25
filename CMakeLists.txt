@@ -16,6 +16,10 @@ add_executable(trabalho-navegacao
   main.cpp
   dijkstra.h
   cidade.h
+
+  ler_dados.h
+  ler_dados.cpp
+  cidades.h
 )
 target_link_libraries(trabalho-navegacao PRIVATE Qt${QT_VERSION_MAJOR}::Core)
 
