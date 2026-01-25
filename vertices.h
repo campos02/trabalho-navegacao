@@ -9,4 +9,6 @@ typedef struct Vertices
     Vertice* vertices;
 } Vertices;
 
+int indice_por_id(Vertices* vertices, uint64_t id);
+
 #endif // VERTICES_H

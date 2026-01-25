@@ -38,15 +38,20 @@ Vertices ler_vertices(QFile* file) {
     vertices.quantidade = verticesJson.size();
     vertices.vertices = (Vertice *) malloc(vertices.quantidade * sizeof(Vertice));
 
+    for (int i = 0; i < vertices.quantidade; i++) {
+        vertices.vertices[i].id = 0;
+        vertices.vertices[i].x = 0;
+        vertices.vertices[i].y = 0;
+    }
+
     for (int i = 0; i < verticesJson.size(); i++) {
         QJsonObject verticeJson = verticesJson[i].toObject();
-        vertices.vertices[i].id = (uint64_t) verticeJson.value("id").toInteger();
-        vertices.vertices[i].x = verticeJson.value("x").toDouble();
-        vertices.vertices[i].y = verticeJson.value("y").toDouble();
+        uint64_t id = (uint64_t) verticeJson.value("id").toInteger();
+        int indice = indice_por_id(&vertices, id);
 
-        textStream << vertices.vertices[i].id << Qt::endl;
-        textStream << vertices.vertices[i].x << Qt::endl;
-        textStream << vertices.vertices[i].y << Qt::endl << Qt::endl;
+        vertices.vertices[indice].id = id;
+        vertices.vertices[indice].x = verticeJson.value("x").toDouble();
+        vertices.vertices[indice].y = verticeJson.value("y").toDouble();
     }
 
     return vertices;
