@@ -1,7 +1,8 @@
-#define CIDADE_H
+#ifndef CIDADE_H
 #define CIDADE_H
 
-typedef struct Cidade {
+typedef struct Cidade
+{
     int id;
     double x;
     double y;

@@ -1,15 +1,15 @@
-#include <QFile>
-#include <QDebug>
 #include <QByteArray>
+#include <QDebug>
+#include <QFile>
 #include <QTextStream>
 
-#include <QJsonParseError>
-#include <QJsonDocument>
 #include <QJsonArray>
+#include <QJsonDocument>
 #include <QJsonObject>
+#include <QJsonParseError>
 
-#include <stdlib.h>
 #include "cidade.h"
+#include <stdlib.h>
 
 int main(int argc, char *argv[])
 {
@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
     QJsonArray cidadesJson = jsonDoc.array();
     QTextStream textStream(stdout);
 
-    Cidade* cidades = (Cidade*)malloc(cidadesJson.size() * sizeof(Cidade));
+    Cidade *cidades = (Cidade *) malloc(cidadesJson.size() * sizeof(Cidade));
 
     for (int i = 0; i < cidadesJson.size(); i++) {
         QJsonObject cidadeJson = cidadesJson[i].toObject();
