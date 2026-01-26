@@ -141,8 +141,6 @@ double* calcular_distancias_dijkstra(Vertices* vertices, uint64_t origem) {
     
     inserir_heap(heap, origem, 0.0);
     
-    // ALGORITMO PRINCIPAL 
-    // O algoritmo de Dijkstra com fila de prioridade (heap mínimo)
     while (!heap_vazio(heap)) {
         // Extrai o vértice com menor distância
         ElementoHeap atual_heap = extrair_minimo(heap);
@@ -165,7 +163,7 @@ double* calcular_distancias_dijkstra(Vertices* vertices, uint64_t origem) {
         // - Ruas de mão única: `unidirecional = true` (ou 1 no nosso caso)
         // - Ruas de mão dupla: `unidirecional = false` (ou 0 no nosso caso)
 
-Aresta* aresta_atual = vertices->vertices[indice_atual].lista_arestas;
+/*Aresta* aresta_atual = vertices->vertices[indice_atual].lista_arestas;
         
         while (aresta_atual != NULL) {
             // Encontra índice do vértice destino
@@ -194,7 +192,7 @@ Aresta* aresta_atual = vertices->vertices[indice_atual].lista_arestas;
     return distancias;
 }
 
-
+*/
 // Encontra o predecessor de um vértice no caminho mínimo
 
 // Aqui verificamos se há uma aresta de i para indice_atual
@@ -242,34 +240,7 @@ uint64_t* reconstruir_caminho_dijkstra(Vertices* vertices, uint64_t origem,
     if (indice_destino == -1 || indice_origem == -1) {
         return NULL;
     }
-    / Array temporário para armazenar caminho (máximo: todos os vértices)
-    uint64_t* caminho_temporario = (uint64_t*)malloc(vertices->quantidade * sizeof(uint64_t));
-    if (!caminho_temporario) return NULL;
-    
-    int contador = 0;
-    int indice_atual = indice_destino;
-    
-    // Começa do destino e vai até a origem
-    while (indice_atual != indice_origem && contador < vertices->quantidade) {
-        caminho_temporario[contador] = vertices->vertices[indice_atual].id;
-        contador++;
-        
-        // Encontra o predecessor no caminho mínimo
-        indice_atual = encontrar_predecessor(vertices, indice_atual, distancias);
-        
-        if (indice_atual == -1) {
-            free(caminho_temporario);
-
-return NULL; // Erro na reconstrução
-        }
-    }
-    
-    // Adiciona a origem
-    if (contador < vertices->quantidade) {
-        caminho_temporario[contador] = origem;
-        contador++;
-    }
-
+  
  // Inverte o caminho (origem -> destino): 
 
 
