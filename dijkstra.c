@@ -272,8 +272,5 @@ return NULL; // Erro na reconstrução
 
  // Inverte o caminho (origem -> destino): 
 
-  free(caminho_temporario);
-    *tamanho_caminho = contador;
-    return caminho;
-}
+
 
