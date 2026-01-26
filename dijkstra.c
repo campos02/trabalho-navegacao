@@ -59,7 +59,7 @@ ElementoHeap extrair_minimo(HeapMinimo* heap) {
     heap->dados[0] = heap->dados[heap->tamanho - 1];
     heap->tamanho--;
     
-    // Ajusta para baixo (heapify)
+    // Ajusta para baixo (heapify) =  nao sei se é necessario
     int i = 0;
     while (1) {
         int menor = i;
