@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#include "vertices.h"  // Usa SEUS arquivos
 // no da lista de adjacencia
 
 /*typedef struct ListaNodo {
@@ -37,12 +38,7 @@ void inserirHeap(HeapMinimo* heap, int vertice, double distancia);
 NoHeap removerMinimo(HeapMinimo* heap);
 int heapVazio(HeapMinimo* heap);
 
-//dijkstra com heap minimo
-
-void dijkstra(GrafoLista* grafo, int origem, int destino);
-
-<<<<<<< HEAD
-#endif
-=======
-#endif
->>>>>>> 7a038e72ef81fec7bc0df0087705962c7fd924dd
+double* calcular_distancias_dijkstra(Vertices* vertices, uint64_t origem);
+uint64_t* reconstruir_caminho_dijkstra(Vertices* vertices, uint64_t origem, 
+                                      uint64_t destino, double* distancias, 
+                                      int* tamanho_caminho);
