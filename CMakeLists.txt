@@ -21,6 +21,8 @@ add_executable(trabalho-navegacao
   ler_dados.cpp
   vertices.h
   vertices.cpp
+  aresta.h
+  dijkstra.cpp
 )
 target_link_libraries(trabalho-navegacao PRIVATE Qt${QT_VERSION_MAJOR}::Core)
 

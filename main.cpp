@@ -1,6 +1,6 @@
 #include "ler_dados.h"
 #include "dijkstra.h"
-#include "trie.h"
+//#include "trie.h"
 
 #include <stdlib.h>
 
@@ -8,10 +8,9 @@ int main(int argc, char *argv[])
 {
     QFile file;
     Vertices vertices = ler_vertices(&file);
-    free(vertices.vertices);
+    ler_arestas(&vertices, &file);
 
-
-    double* distancias = dijkstra(&vertices, origem, predecessores);
+    /*double* distancias = dijkstra(&vertices, origem, predecessores);
 
     if (distancias == NULL) {
         printf("Erro ao calcular Dijkstra.\n");
@@ -34,10 +33,8 @@ int main(int argc, char *argv[])
     }
 
     // Liberar memória
-    free(distancias);
-
-    liberarListasArestas(&vertices);
-    free(vertices.vertices);
+    free(distancias);*/
+    liberar_vertices(&vertices);
 
     return 0;
 

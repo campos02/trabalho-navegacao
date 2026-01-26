@@ -8,7 +8,7 @@
 // fila de pprioridade/ heap minimo
 
 // Cria um heap mínimo com capacidade inicial
-HeapMinimo* criar_heap(int capacidade) {
+/*HeapMinimo* criar_heap(int capacidade) {
     if (capacidade <= 0) capacidade = 10;
     
     HeapMinimo* heap = (HeapMinimo*)malloc(sizeof(HeapMinimo));
@@ -201,7 +201,7 @@ double* calcular_distancias_dijkstra(Vertices* vertices, uint64_t origem) {
             // essa aresta existe. Se for mão única na direção contrária, não existe.
 
 
-static int encontrar_predecessor(Vertices* vertices, int indice_atual, double* distancias) {
+/*static int encontrar_predecessor(Vertices* vertices, int indice_atual, double* distancias) {
     // Procura por um vértice que tenha uma aresta para o atual e que faça parte do caminho mínimo
     for (int i = 0; i < vertices->quantidade; i++) {
         if (i == indice_atual) continue;
@@ -240,6 +240,7 @@ uint64_t* reconstruir_caminho_dijkstra(Vertices* vertices, uint64_t origem,
     if (indice_destino == -1 || indice_origem == -1) {
         return NULL;
     }
+}*/
   
  // Inverte o caminho (origem -> destino): 
 

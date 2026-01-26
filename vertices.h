@@ -10,5 +10,6 @@ typedef struct Vertices
 } Vertices;
 
 int indice_por_id(Vertices* vertices, uint64_t id);
+void liberar_vertices(Vertices* vertices);
 
 #endif // VERTICES_H

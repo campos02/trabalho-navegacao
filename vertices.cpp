@@ -1,4 +1,6 @@
 #include <stdint.h>
+#include <stdlib.h>
+
 #include "vertices.h"
 
 int indice_por_id(Vertices* vertices, uint64_t id) {
@@ -12,4 +14,11 @@ int indice_por_id(Vertices* vertices, uint64_t id) {
         indice++;
 
     return indice;
+}
+
+void liberar_vertices(Vertices* vertices) {
+    for (int i = 0; i < vertices->quantidade; i++)
+        free(vertices->vertices[i].arestas);
+
+    free(vertices->vertices);
 }
