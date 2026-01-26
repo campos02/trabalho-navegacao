@@ -1,4 +1,7 @@
 #include "ler_dados.h"
+#include "dijkstra.h"
+#include "trie.h"
+
 #include <stdlib.h>
 
 int main(int argc, char *argv[])
