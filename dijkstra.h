@@ -6,12 +6,13 @@
 // no da lista de adjacencia
 
 typedef struct ListaNodo {
-    int destino;                // Vértice de destino da aresta
+    uint64_t destino;                // Vértice de destino da aresta
     double peso;                // Peso da aresta (distância)
+        int unidirecional;    // Adicionei para mão única
     struct ListaNodo* proxima;     // Próxima aresta na lista
 } ListaNodo;
 
-tydef struct {
+typedef struct {
     int numVertices;            // Número total de vértices
     ListaNodo** listaArray;     // Vetor de listas de adjacência
 } GrafoLista;
@@ -26,6 +27,7 @@ typedef struct {
 typedef struct {
     NoHeap* dados;              // Vetor de nós
     int tamanho;                // Quantidade atual de elementos
+    int capacidade;             // Capacidade máxima do heap
 } HeapMinimo;
 
 //funçoes para heap/ fila de prioridade
@@ -39,4 +41,8 @@ int heapVazio(HeapMinimo* heap);
 
 void dijkstra(GrafoLista* grafo, int origem, int destino);
 
+<<<<<<< HEAD
 #endif
+=======
+#endif
+>>>>>>> 7a038e72ef81fec7bc0df0087705962c7fd924dd
