@@ -5,7 +5,7 @@
 
 // no da lista de adjacencia
 
-typedef struct ListaNodo {
+/*typedef struct ListaNodo {
     uint64_t destino;                // Vértice de destino da aresta
     double peso;                // Peso da aresta (distância)
         int unidirecional;    // Adicionei para mão única
@@ -15,7 +15,7 @@ typedef struct ListaNodo {
 typedef struct {
     int numVertices;            // Número total de vértices
     ListaNodo** listaArray;     // Vetor de listas de adjacência
-} GrafoLista;
+} GrafoLista; */
 
 //fila de prioridade com heap minimo
 
