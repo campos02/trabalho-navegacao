@@ -1,6 +1,6 @@
 #include "ler_dados.h"
 #include "dijkstra.h"
-//#include "trie.h"
+#include "trie.h"
 
 #include <stdlib.h>
 
