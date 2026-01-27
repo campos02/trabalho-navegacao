@@ -76,7 +76,7 @@ Vertices ler_vertices(QFile* file) {
 
         for (int j = 0; j < vertices.vertices[indice].quantidade_arestas; j++) {
             vertices.vertices[indice].arestas[j].osmid = 0;
-            vertices.vertices[indice].arestas[j].vertice = 0;
+            vertices.vertices[indice].arestas[j].destino = 0;
             vertices.vertices[indice].arestas[j].tamanho = 0;
         }
     }
@@ -114,10 +114,10 @@ void ler_arestas(Vertices* vertices, QFile* file) {
 
         // Encontrar primeira posição livre
         while (indice_aresta < vertices->vertices[indice_vertice].quantidade_arestas - 1 &&
-               vertices->vertices[indice_vertice].arestas[indice_aresta].vertice != 0)
+               vertices->vertices[indice_vertice].arestas[indice_aresta].destino != 0)
             indice_aresta++;
 
-        vertices->vertices[indice_vertice].arestas[indice_aresta].vertice = (uint64_t) arestaJson.value("v").toInteger();
+        vertices->vertices[indice_vertice].arestas[indice_aresta].destino = (uint64_t) arestaJson.value("v").toInteger();
 
         QJsonObject dadosJson = arestaJson.value("data").toObject();
         vertices->vertices[indice_vertice].arestas[indice_aresta].osmid = (uint64_t) dadosJson.value("osmid").toInteger();

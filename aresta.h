@@ -6,7 +6,7 @@
 
 typedef struct Aresta {
     uint64_t osmid;
-    uint64_t vertice;
+    uint64_t destino;
     double tamanho;
 } Aresta;
 
