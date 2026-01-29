@@ -1,5 +1,6 @@
 
 #include "dijkstra.h"
+
 #include <stdlib.h>
 #include <float.h>
 #include <stdio.h>
@@ -107,25 +108,27 @@ void liberar_heap(HeapMinimo* heap) {
 
 // Calcula distâncias mínimas a partir de um vértice origem
 // RETORNA: array de distâncias ou NULL em caso de erro
-double* calcular_distancias_dijkstra(Vertices* vertices, uint64_t origem) {
+Distancia* calcular_distancias_dijkstra(Vertices* vertices, uint64_t origem) {
     if (!vertices)
         return NULL;
     
     int n = vertices->quantidade;
     
-    // Array de distâncias (inicialmente infinito)
-    double* distancias = (double*)malloc(n * sizeof(double));
+    Distancia* distancias = (Distancia*)malloc(n * sizeof(Distancia));
     if (!distancias)
         return NULL;
+
+    for (int i = 0; i < n; i++) {
+        distancias[i].distancia = 0;
+        distancias[i].predecessor = 0;
+    }
     
-    // Array para marcar vértices processados
     int* processado = (int*)calloc(n, sizeof(int));
     if (!processado) {
         free(distancias);
         return NULL;
     }
 
-    // Encontra índice da origem usando SUA função
     int indice_origem = indice_por_id(vertices, origem);
     if (indice_origem == -1) {
         free(distancias);
@@ -134,9 +137,9 @@ double* calcular_distancias_dijkstra(Vertices* vertices, uint64_t origem) {
     }
     
     // Distância da origem para si mesma é 0
-    distancias[indice_origem] = 0.0;
+    distancias[indice_origem].distancia = 0.0;
+    distancias[indice_origem].predecessor = 0;
 
-    // Cria heap mínimo
     HeapMinimo* heap = criar_heap(n);
     if (!heap) {
         free(distancias);
@@ -145,7 +148,6 @@ double* calcular_distancias_dijkstra(Vertices* vertices, uint64_t origem) {
     }
     
     inserir_heap(heap, origem, 0.0);
-    
     while (!heap_vazio(heap)) {
         // Extrai o vértice com menor distância
         NoHeap atual_heap = extrair_minimo(heap);
@@ -159,24 +161,17 @@ double* calcular_distancias_dijkstra(Vertices* vertices, uint64_t origem) {
         processado[indice_atual] = 1;
 
         // Percorre todas as arestas saindo do vértice atual
-        // O campo `unidirecional` determina se a aresta é de mão única:
-        // - Se `unidirecional = 1`: só podemos percorrer de origem para destino
-        // - Se `unidirecional = 0`: podemos percorrer nos dois sentidos
-        // 
-        // NO ARQUIVO `edges.json` DO SEU TRABALHO:
-        // - Ruas de mão única: `unidirecional = true` (ou 1 no nosso caso)
-        // - Ruas de mão dupla: `unidirecional = false` (ou 0 no nosso caso)
-
         for (int i = 0; i < vertices->vertices[indice_atual].quantidade_arestas; i++) {
             // Encontra índice do vértice destino
             int indice_destino = indice_por_id(vertices, vertices->vertices[indice_atual].arestas[i].destino);
             if (indice_destino != -1 && !processado[indice_destino]) {
                 // Calcula nova distância
-                double nova_distancia = distancias[indice_atual] + vertices->vertices[indice_atual].arestas[i].tamanho;
+                double nova_distancia = distancias[indice_atual].distancia + vertices->vertices[indice_atual].arestas[i].tamanho;
 
                 // Se encontrou um caminho mais curto, atualiza
-                if (nova_distancia < distancias[indice_destino]) {
-                    distancias[indice_destino] = nova_distancia;
+                if (nova_distancia < distancias[indice_destino].distancia) {
+                    distancias[indice_destino].distancia = nova_distancia;
+                    distancias[indice_destino].predecessor = vertice_atual_id;
 
                     // Insere no heap
                     inserir_heap(heap, vertices->vertices[indice_atual].arestas[i].destino, nova_distancia);
@@ -192,50 +187,28 @@ double* calcular_distancias_dijkstra(Vertices* vertices, uint64_t origem) {
     return distancias;
 }
 
-// Encontra o predecessor de um vértice no caminho mínimo
-
-// Aqui verificamos se há uma aresta de i para indice_atual
-// Como armazenamos apenas arestas na direção permitida, se uma rua
-// for de mão única (unidirecional = 1) de i para indice_atual, então
-// essa aresta existe. Se for mão única na direção contrária, não existe.
-static int encontrar_predecessor(Vertices* vertices, int indice_atual, double* distancias) {
-    // Procura por um vértice que tenha uma aresta para o atual e que faça parte do caminho mínimo
-    for (int i = 0; i < vertices->quantidade; i++) {
-        if (i == indice_atual)
-            continue;
-
-        for (int i = 0; i < vertices->vertices[indice_atual].quantidade_arestas; i++) {
-            if (vertices->vertices[indice_atual].arestas[i].destino == vertices->vertices[indice_atual].id) {
-                // Verifica se esta aresta faz parte do caminho mínimo
-                // Usamos comparação com tolerância para erros de ponto flutuante
-                double diferenca = distancias[indice_atual] - (distancias[i] + vertices->vertices[indice_atual].arestas[i].tamanho);
-
-                // Se a diferença for muito pequena (praticamente zero)
-                if (diferenca > -0.0001 && diferenca < 0.0001) {
-                    return i;
-                }
-            }
-        }
-    }
-    
-    return -1; // Nenhum predecessor encontrado
-}
-
-// Reconstrói o caminho mínimo da origem ao destino
+// Constrói o caminho mínimo da origem ao destino
 // RETORNA: array de IDs dos vértices no caminho ou NULL se não houver caminho
-uint64_t* reconstruir_caminho_dijkstra(Vertices* vertices, uint64_t origem, 
-                                      uint64_t destino, double* distancias, 
-                                      int* tamanho_caminho) {
-    *tamanho_caminho = 0;
+uint64_t* construir_caminho_dijkstra(Vertices* vertices, uint64_t origem, uint64_t destino, Distancia* distancias) {
     if (!vertices || !distancias)
         return NULL;
     
     int indice_destino = indice_por_id(vertices, destino);
     int indice_origem = indice_por_id(vertices, origem);
     
-    if (indice_destino == -1 || indice_origem == -1) {
+    if (indice_destino == -1 || indice_origem == -1)
         return NULL;
+
+    uint64_t* caminho = (uint64_t*) calloc(vertices->quantidade, sizeof(uint64_t));
+    Distancia distancia_atual = distancias[indice_destino];
+    int i = vertices->quantidade - 1;
+    caminho[i] = destino;
+
+    while (distancia_atual.predecessor != 0 && i > 0) {
+        i--;
+        caminho[i] = distancia_atual.predecessor;
+        distancia_atual = distancias[indice_por_id(vertices, distancia_atual.predecessor)];
     }
+
+    return caminho;
 }
-  
- // Inverte o caminho (origem -> destino)

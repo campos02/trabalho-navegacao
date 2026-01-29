@@ -1,24 +1,18 @@
 #define DIJKSTRA_H
 #define DIJKSTRA_H
-#include <stdlib.h>
-#include <stdio.h>
 
-#include "vertices.h"  // Usa SEUS arquivos
-// no da lista de adjacencia
+#include <stdint.h>
+#include "vertices.h"
 
-/*typedef struct ListaNodo {
-    uint64_t destino;                // Vértice de destino da aresta
-    double peso;                // Peso da aresta (distância)
-        int unidirecional;    // Adicionei para mão única
-    struct ListaNodo* proxima;     // Próxima aresta na lista
-} ListaNodo;
+typedef struct Distancia {
+    uint64_t predecessor;
+    double distancia;
+} Distancia;
 
-typedef struct {
-    int numVertices;            // Número total de vértices
-    ListaNodo** listaArray;     // Vetor de listas de adjacência
-} GrafoLista; */
-
-//fila de prioridade com heap minimo
+typedef struct Caminho {
+    int tamanho;
+    uint64_t* caminho;
+} Caminho;
 
 typedef struct {
     int vertice;                // Identificador do vértice
@@ -38,7 +32,5 @@ void inserirHeap(HeapMinimo* heap, int vertice, double distancia);
 NoHeap removerMinimo(HeapMinimo* heap);
 int heapVazio(HeapMinimo* heap);
 
-double* calcular_distancias_dijkstra(Vertices* vertices, uint64_t origem);
-uint64_t* reconstruir_caminho_dijkstra(Vertices* vertices, uint64_t origem, 
-                                      uint64_t destino, double* distancias, 
-                                      int* tamanho_caminho);
+Distancia* calcular_distancias_dijkstra(Vertices* vertices, uint64_t origem);
+uint64_t* construir_caminho_dijkstra(Vertices* vertices, uint64_t origem, uint64_t destino, Distancia* distancias);
