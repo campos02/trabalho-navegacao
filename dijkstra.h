@@ -15,7 +15,7 @@ typedef struct Caminho {
 } Caminho;
 
 typedef struct {
-    int vertice;                // Identificador do vértice
+    uint64_t vertice;                // Identificador do vértice
     double distancia;           // Distância acumulada até ele
 } NoHeap;
 
@@ -33,4 +33,4 @@ NoHeap removerMinimo(HeapMinimo* heap);
 int heapVazio(HeapMinimo* heap);
 
 Distancia* calcular_distancias_dijkstra(Vertices* vertices, uint64_t origem);
-uint64_t* construir_caminho_dijkstra(Vertices* vertices, uint64_t origem, uint64_t destino, Distancia* distancias);
+Caminho construir_caminho_dijkstra(Vertices* vertices, uint64_t origem, uint64_t destino, Distancia* distancias);

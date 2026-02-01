@@ -113,13 +113,13 @@ Distancia* calcular_distancias_dijkstra(Vertices* vertices, uint64_t origem) {
         return NULL;
     
     int n = vertices->quantidade;
-    
     Distancia* distancias = (Distancia*)malloc(n * sizeof(Distancia));
     if (!distancias)
         return NULL;
 
+    // Distância "infinita" padrão
     for (int i = 0; i < n; i++) {
-        distancias[i].distancia = 0;
+        distancias[i].distancia = INT_MAX / 2;
         distancias[i].predecessor = 0;
     }
     
@@ -183,31 +183,37 @@ Distancia* calcular_distancias_dijkstra(Vertices* vertices, uint64_t origem) {
     // Libera memória auxiliar
     liberar_heap(heap);
     free(processado);
-    
+
     return distancias;
 }
 
 // Constrói o caminho mínimo da origem ao destino
-// RETORNA: array de IDs dos vértices no caminho ou NULL se não houver caminho
-uint64_t* construir_caminho_dijkstra(Vertices* vertices, uint64_t origem, uint64_t destino, Distancia* distancias) {
+Caminho construir_caminho_dijkstra(Vertices* vertices, uint64_t origem, uint64_t destino, Distancia* distancias) {
+    Caminho caminho;
+    caminho.tamanho = 0;
+    caminho.caminho = NULL;
+
     if (!vertices || !distancias)
-        return NULL;
+        return caminho;
     
     int indice_destino = indice_por_id(vertices, destino);
     int indice_origem = indice_por_id(vertices, origem);
     
     if (indice_destino == -1 || indice_origem == -1)
-        return NULL;
+        return caminho;
 
-    uint64_t* caminho = (uint64_t*) calloc(vertices->quantidade, sizeof(uint64_t));
+    caminho.caminho = (uint64_t*) calloc(vertices->quantidade, sizeof(uint64_t));
     Distancia distancia_atual = distancias[indice_destino];
     int i = vertices->quantidade - 1;
-    caminho[i] = destino;
+    caminho.caminho[i] = destino;
 
     while (distancia_atual.predecessor != 0 && i > 0) {
+        caminho.tamanho++;
+        caminho.caminho[i] = distancia_atual.predecessor;
+
+        int indice = indice_por_id(vertices, distancia_atual.predecessor);
+        distancia_atual = distancias[indice];
         i--;
-        caminho[i] = distancia_atual.predecessor;
-        distancia_atual = distancias[indice_por_id(vertices, distancia_atual.predecessor)];
     }
 
     return caminho;

@@ -10,32 +10,18 @@ int main(int argc, char *argv[])
     Vertices vertices = ler_vertices(&file);
     ler_arestas(&vertices, &file);
 
-    /*double* distancias = dijkstra(&vertices, origem, predecessores);
+    Distancia* distancias = calcular_distancias_dijkstra(&vertices, vertices.vertices[0].id);
+    Caminho caminho = construir_caminho_dijkstra(&vertices, vertices.vertices[0].id, vertices.vertices[8080].id, distancias);
 
-    if (distancias == NULL) {
-        printf("Erro ao calcular Dijkstra.\n");
-        return 1;
+    for (int i = vertices.quantidade - caminho.tamanho; i < vertices.quantidade; i++) {
+        printf("%u ", caminho.caminho[i]);
     }
 
-    int tamanhoCaminho;
-    uint64_t* caminho = reconstruirCaminho(origem, destino, predecessores, &vertices, &tamanhoCaminho);
+    printf("\n");
 
-    if (caminho != NULL) {
-        printf("Caminho encontrado com %d vértices:\n", tamanhoCaminho);
-        for (int i = 0; i < tamanhoCaminho; i++) {
-            printf("%lu", caminho[i]);
-            if (i < tamanhoCaminho - 1) printf(" -> ");
-        }
-        printf("\n");
-        free(caminho);
-         } else {
-        printf("Não há caminho.\n");
-    }
-
-    // Liberar memória
-    free(distancias);*/
+    free(distancias);
+    free(caminho.caminho);
     liberar_vertices(&vertices);
 
     return 0;
-
 }
