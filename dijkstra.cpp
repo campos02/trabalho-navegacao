@@ -232,3 +232,17 @@ Caminho construir_caminho_dijkstra(Vertices *vertices,
 
     return caminho;
 }
+
+// Exemplo de como adicionar aresta considerando mão única
+void adicionar_aresta(Vertices* vertices, uint64_t origem, uint64_t destino, 
+                     double peso, int unidirecional) {
+    
+    // 1. Adiciona aresta da origem para o destino (sempre)
+    adicionar_aresta_ao_vertice(vertices, origem, destino, peso, unidirecional);
+    
+    // 2. Se NÃO for unidirecional (mão dupla), adiciona a volta
+    if (!unidirecional) {
+        adicionar_aresta_ao_vertice(vertices, destino, origem, peso, 0); // 0 = não é unidirecional
+    }
+    // Se for unidirecional, NÃO adiciona a volta
+}
