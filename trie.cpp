@@ -3,6 +3,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonParseError>
+#include <QDebug>
 // ===== Funções auxiliares =====
 
 static NoTrie *criar_no_trie(void)
@@ -182,6 +186,40 @@ void liberar_trie(ArvoreTrie *trie)
     free(trie);
 }
 
+void carregar_nodes_to_label(ArvoreTrie *trie, QFile *file)
+{
+    if (!trie || !file)
+        return;
+
+    file->setFileName("nodes_to_label.json");
+
+    if (!file->open(QIODevice::ReadOnly)) {
+        qDebug() << "Erro ao abrir nodes_to_label.json";
+        return;
+    }
+
+    QByteArray data = file->readAll();
+    file->close();
+
+    QJsonParseError erro;
+    QJsonDocument doc = QJsonDocument::fromJson(data, &erro);
+
+    if (erro.error != QJsonParseError::NoError) {
+        qDebug() << "Erro JSON:" << erro.errorString();
+        return;
+    }
+
+    QJsonObject obj = doc.object();
+
+    for (auto it = obj.begin(); it != obj.end(); ++it) {
+        uint64_t id = it.key().toULongLong();
+        QString nome = it.value().toString();
+
+        inserir_na_trie(trie,
+                        nome.toUtf8().constData(),
+                        id);
+    }
+}
 void mostrar_estatisticas_trie(ArvoreTrie *trie)
 {
     if (!trie)
