@@ -12,7 +12,19 @@ int main(int argc, char *argv[])
     ler_arestas(&vertices, &file);
 
     ArvoreTrie *trie = criar_trie();
-     carregar_nodes_to_label(trie, &file);   
+     carregar_nodes_to_label(trie, &file); 
+//-----TESTE DA TRIE.
+     int qtd = 0;
+     char **res = buscar_prefixo_trie(trie, "marques", &qtd);
+
+     printf("Resultados (%d):\n", qtd);
+     for (int i = 0; i < qtd; i++) {
+         printf("  %s\n", res[i]);
+         free(res[i]);
+     }
+     free(res);
+
+//------    
 
     Distancia *distancias =
         calcular_distancias_dijkstra(&vertices, vertices.vertices[0].id);
