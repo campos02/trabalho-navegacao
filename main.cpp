@@ -12,12 +12,7 @@ int main(int argc, char *argv[])
     ler_arestas(&vertices, &file);
 
     ArvoreTrie *trie = criar_trie();
-
-    // falta implementar
-   //  - ler label_to_nodes.json
-  //   - para cada (nome, id):
- //    -  inserir_na_trie(trie, nome, id);
-     
+     carregar_nodes_to_label(trie, &file);   
 
     Distancia *distancias =
         calcular_distancias_dijkstra(&vertices, vertices.vertices[0].id);
