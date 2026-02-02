@@ -9,6 +9,8 @@ typedef struct Aresta
     uint64_t osmid;
     uint64_t destino;
     double tamanho;
+    int unidirecional;          // 1 = mão única (só vai de origem para destino)
+                                // 0 = mão dupla (vai e volta)
 } Aresta;
 
 #endif // ARESTA_H
