@@ -41,3 +41,6 @@ Caminho construir_caminho_dijkstra(Vertices *vertices,
                                    uint64_t origem,
                                    uint64_t destino,
                                    Distancia *distancias);
+
+void adicionar_aresta(Vertices* vertices, uint64_t origem, uint64_t destino, 
+                     double peso, int unidirecional) 
