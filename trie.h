@@ -3,6 +3,7 @@
 
 #include <stdbool.h>
 #include <stdint.h>
+#include <QFile>
 
 #define TAMANHO_MAX_NOME 256 // Tamanho máximo de um nome de rua
 
@@ -39,5 +40,7 @@ uint64_t *buscar_ids_trie(
 void liberar_trie(ArvoreTrie *trie);
 
 void mostrar_estatisticas_trie(ArvoreTrie *trie); // Exibe estatísticas da Trie (para debug)
+
+void carregar_nodes_to_label(ArvoreTrie *trie, QFile *file); // Lê nodes_to_label.json e insere na Trie
 
 #endif // TRIE_H
