@@ -22,6 +22,7 @@ add_executable(trabalho-navegacao
   aresta.h
   dijkstra.cpp
   trie.h
+  trie.c
 
 )
 target_link_libraries(trabalho-navegacao PRIVATE Qt${QT_VERSION_MAJOR}::Core)
