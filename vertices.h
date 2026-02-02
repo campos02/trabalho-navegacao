@@ -2,8 +2,8 @@
 #define VERTICES_H
 
 // Manter o tamanho máximo do id consistente mesmo em plataformas diferentes
-#include <stdint.h>
 #include "aresta.h"
+#include <stdint.h>
 
 typedef struct Vertice
 {
@@ -12,16 +12,16 @@ typedef struct Vertice
     double y;
 
     int quantidade_arestas;
-    Aresta* arestas;
+    Aresta *arestas;
 } Vertice;
 
 typedef struct Vertices
 {
     int quantidade;
-    Vertice* vertices;
+    Vertice *vertices;
 } Vertices;
 
-int indice_por_id(Vertices* vertices, uint64_t id);
-void liberar_vertices(Vertices* vertices);
+int indice_por_id(Vertices *vertices, uint64_t id);
+void liberar_vertices(Vertices *vertices);
 
 #endif // VERTICES_H

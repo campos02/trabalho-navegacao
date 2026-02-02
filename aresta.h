@@ -4,7 +4,8 @@
 // Manter o tamanho máximo do id consistente mesmo em plataformas diferentes
 #include <stdint.h>
 
-typedef struct Aresta {
+typedef struct Aresta
+{
     uint64_t osmid;
     uint64_t destino;
     double tamanho;

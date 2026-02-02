@@ -1,6 +1,6 @@
-#include <QFile>
 #include <QByteArray>
 #include <QDebug>
+#include <QFile>
 #include <QTextStream>
 
 #include <QJsonArray>
@@ -12,7 +12,8 @@
 
 #include "vertices.h"
 
-Vertices ler_vertices(QFile* file) {
+Vertices ler_vertices(QFile *file)
+{
     Vertices vertices;
     vertices.quantidade = 0;
     vertices.vertices = NULL;
@@ -67,7 +68,8 @@ Vertices ler_vertices(QFile* file) {
         vertices.vertices[indice].y = verticeJson.value("y").toDouble();
 
         vertices.vertices[indice].quantidade_arestas = verticeJson.value("street_count").toInt();
-        vertices.vertices[indice].arestas = (Aresta*) malloc(vertices.vertices[indice].quantidade_arestas * sizeof(Aresta));
+        vertices.vertices[indice].arestas = (Aresta *) malloc(
+            vertices.vertices[indice].quantidade_arestas * sizeof(Aresta));
 
         if (vertices.vertices[indice].arestas == NULL) {
             qWarning() << "Erro ao alocar memoria para arestas";
@@ -84,7 +86,8 @@ Vertices ler_vertices(QFile* file) {
     return vertices;
 }
 
-void ler_arestas(Vertices* vertices, QFile* file) {
+void ler_arestas(Vertices *vertices, QFile *file)
+{
     file->setFileName("edges.json");
     if (!file->open(QIODevice::ReadOnly)) {
         qDebug() << "Json file couldn't be opened/found";
@@ -113,14 +116,17 @@ void ler_arestas(Vertices* vertices, QFile* file) {
         int indice_aresta = 0;
 
         // Encontrar primeira posição livre
-        while (indice_aresta < vertices->vertices[indice_vertice].quantidade_arestas - 1 &&
-               vertices->vertices[indice_vertice].arestas[indice_aresta].destino != 0)
+        while (indice_aresta < vertices->vertices[indice_vertice].quantidade_arestas - 1
+               && vertices->vertices[indice_vertice].arestas[indice_aresta].destino != 0)
             indice_aresta++;
 
-        vertices->vertices[indice_vertice].arestas[indice_aresta].destino = (uint64_t) arestaJson.value("v").toInteger();
+        vertices->vertices[indice_vertice].arestas[indice_aresta].destino
+            = (uint64_t) arestaJson.value("v").toInteger();
 
         QJsonObject dadosJson = arestaJson.value("data").toObject();
-        vertices->vertices[indice_vertice].arestas[indice_aresta].osmid = (uint64_t) dadosJson.value("osmid").toInteger();
-        vertices->vertices[indice_vertice].arestas[indice_aresta].tamanho = dadosJson.value("length").toDouble();
+        vertices->vertices[indice_vertice].arestas[indice_aresta].osmid
+            = (uint64_t) dadosJson.value("osmid").toInteger();
+        vertices->vertices[indice_vertice].arestas[indice_aresta].tamanho
+            = dadosJson.value("length").toDouble();
     }
 }
