@@ -13,6 +13,7 @@ typedef struct Vertice
 
     int quantidade_arestas;
     Aresta *arestas;
+    //int capacidade_arestas;     // Capacidade do array (para redimensionamento)
 } Vertice;
 
 typedef struct Vertices
