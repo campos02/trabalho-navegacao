@@ -241,8 +241,8 @@ Aresta aresta_rua(Vertices *vertices, uint64_t origem, uint64_t destino)
             return vertices->vertices[indice_origem].arestas[i];
     }
 
+    // Retornar aresta inválida
     Aresta aresta;
     aresta.destino = 0;
-
     return aresta;
 }

@@ -37,6 +37,8 @@ int main(int argc, char *argv[])
 
     for (int i = vertices.quantidade - caminho.tamanho; i < vertices.quantidade - 1; i++) {
         Aresta aresta = aresta_rua(&vertices, caminho.caminho[i], caminho.caminho[i + 1]);
+
+        // Verificar se a aresta é válida e tem nome
         if (aresta.destino != 0 && aresta.nome[0] != '\0') {
             if (!strcmp(aresta.tipo, "primary") || !strcmp(aresta.tipo, "secondary"))
                 printf("Av. %s -> ", aresta.nome);
