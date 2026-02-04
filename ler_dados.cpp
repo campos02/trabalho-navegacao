@@ -20,7 +20,7 @@ Vertices ler_vertices(QFile *file)
 
     file->setFileName("nodes.json");
     if (!file->open(QIODevice::ReadOnly)) {
-        qDebug() << "Json file couldn't be opened/found";
+        qDebug() << "nodes.json nao encontrado";
         return vertices;
     }
 
@@ -90,7 +90,7 @@ void ler_arestas(Vertices *vertices, QFile *file)
 {
     file->setFileName("edges.json");
     if (!file->open(QIODevice::ReadOnly)) {
-        qDebug() << "Json file couldn't be opened/found";
+        qDebug() << "edges.json nao encontrado";
         return;
     }
 
@@ -126,7 +126,18 @@ void ler_arestas(Vertices *vertices, QFile *file)
         QJsonObject dadosJson = arestaJson.value("data").toObject();
         vertices->vertices[indice_vertice].arestas[indice_aresta].osmid
             = (uint64_t) dadosJson.value("osmid").toInteger();
+
         vertices->vertices[indice_vertice].arestas[indice_aresta].tamanho
             = dadosJson.value("length").toDouble();
+
+        QString nome = dadosJson.value("name").toString();
+        strncpy(vertices->vertices[indice_vertice].arestas[indice_aresta].nome,
+                nome.toUtf8().constData(),
+                TAMANHO_MAX_NOME);
+
+        QString tipo = dadosJson.value("highway").toString();
+        strncpy(vertices->vertices[indice_vertice].arestas[indice_aresta].tipo,
+                tipo.toUtf8().constData(),
+                TAMANHO_MAX_TIPO);
     }
 }

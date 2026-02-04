@@ -42,3 +42,4 @@ Caminho construir_caminho_dijkstra(Vertices *vertices,
                                    uint64_t destino,
                                    Distancia *distancias);
 
+Aresta aresta_rua(Vertices *vertices, uint64_t origem, uint64_t destino);

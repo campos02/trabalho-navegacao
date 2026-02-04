@@ -12,35 +12,40 @@ int main(int argc, char *argv[])
     ler_arestas(&vertices, &file);
 
     ArvoreTrie *trie = criar_trie();
-     carregar_nodes_to_label(trie, &file); 
-//-----TESTE DA TRIE.
-     int qtd = 0;
-     char **res = buscar_prefixo_trie(trie, "marques", &qtd);
+    carregar_nodes_to_label(trie, &file);
 
-     printf("Resultados (%d):\n", qtd);
-     for (int i = 0; i < qtd; i++) {
-         printf("  %s\n", res[i]);
-         free(res[i]);
-     }
-     free(res);
+    //-----TESTE DA TRIE.
+    int qtd = 0;
+    char **res = buscar_prefixo_trie(trie, "marques", &qtd);
 
-//------    
-
-    Distancia *distancias =
-        calcular_distancias_dijkstra(&vertices, vertices.vertices[0].id);
-
-    Caminho caminho = construir_caminho_dijkstra(&vertices,
-                                                 vertices.vertices[0].id,
-                                                 vertices.vertices[8080].id,
-                                                 distancias);
-
-    for (int i = vertices.quantidade - caminho.tamanho;
-         i < vertices.quantidade;
-         i++) {
-        printf("%lu ", caminho.caminho[i]);
+    printf("Resultados (%d):\n", qtd);
+    for (int i = 0; i < qtd; i++) {
+        printf("  %s\n", res[i]);
+        free(res[i]);
     }
+    free(res);
 
     printf("\n");
+
+    //------
+
+    Distancia *distancias = calcular_distancias_dijkstra(&vertices, vertices.vertices[0].id);
+    Caminho caminho = construir_caminho_dijkstra(&vertices,
+                                                 vertices.vertices[0].id,
+                                                 vertices.vertices[800].id,
+                                                 distancias);
+
+    for (int i = vertices.quantidade - caminho.tamanho; i < vertices.quantidade - 1; i++) {
+        Aresta aresta = aresta_rua(&vertices, caminho.caminho[i], caminho.caminho[i + 1]);
+        if (aresta.destino != 0 && aresta.nome[0] != '\0') {
+            if (!strcmp(aresta.tipo, "primary") || !strcmp(aresta.tipo, "secondary"))
+                printf("Av. %s -> ", aresta.nome);
+            else
+                printf("R. %s -> ", aresta.nome);
+        }
+    }
+
+    printf("Destino\n");
 
     free(distancias);
     free(caminho.caminho);
