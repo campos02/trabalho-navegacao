@@ -143,11 +143,7 @@ int main(int argc, char *argv[])
 
     Caminho caminho = construir_caminho_dijkstra(&vertices,
                                                  resultados_origem[opcao_resultado_origem].id,
-<<<<<<< HEAD
-                                                 vertices.vertices[800].id,//resultados_destino[opcao_resultado_destino].id
-=======
                                                  resultados_destino[opcao_resultado_destino].id,
->>>>>>> c7ed0ad (Melhorar interface)
                                                  distancias);
 
     printf("Caminho de %s a %s:\n\n",
