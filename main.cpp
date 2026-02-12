@@ -43,20 +43,22 @@ int main(int argc, char *argv[])
         quantidade_resultados = 0;
         resultados_origem = buscar_prefixo_trie(trie, pesquisa, &quantidade_resultados);
 
+        printf("Resultados de origem:\n");
         for (int j = 0; j < quantidade_resultados; j++)
             printf("%d. %s\n", j + 1, resultados_origem[j].nome);
 
         if (quantidade_resultados > 0)
             printf("\n");
         else
-            printf("Nenhum resultado\n");
+            printf("Nenhum resultado\n\n");
 
-        printf("Origem: ");
+        printf("Origem (caso haja resultados pressione Enter para escolher um): ");
         fgets(pesquisa, TAMANHO_MAX_NOME, stdin);
     }
 
     // Limpar terminal
     printf("\e[1;1H\e[2J");
+    printf("Resultados de origem:\n");
     for (int i = 0; i < quantidade_resultados; i++)
         printf("%d. %s\n", i + 1, resultados_origem[i].nome);
 
@@ -75,6 +77,7 @@ int main(int argc, char *argv[])
 
     // Limpar terminal
     printf("\e[1;1H\e[2J");
+    printf("Origem selecionada: %s\n", resultados_origem[opcao_resultado_origem].nome);
     printf("Destino: ");
 
     Resultado *resultados_destino = NULL;
@@ -98,29 +101,36 @@ int main(int argc, char *argv[])
         quantidade_resultados = 0;
         resultados_destino = buscar_prefixo_trie(trie, pesquisa, &quantidade_resultados);
 
+        printf("Resultados de destino:\n");
         for (int j = 0; j < quantidade_resultados; j++)
             printf("%d. %s\n", j + 1, resultados_destino[j].nome);
 
         if (quantidade_resultados > 0)
             printf("\n");
         else
-            printf("Nenhum resultado\n");
+            printf("Nenhum resultado\n\n");
 
-        printf("Destino: ");
+        printf("Origem selecionada: %s\n", resultados_origem[opcao_resultado_origem].nome);
+        printf("Destino (caso haja resultados pressione Enter para escolher um): ");
         fgets(pesquisa, TAMANHO_MAX_NOME, stdin);
     }
 
     // Limpar terminal
     printf("\e[1;1H\e[2J");
+    printf("Resultados de destino:\n");
     for (int i = 0; i < quantidade_resultados; i++)
         printf("%d. %s\n", i + 1, resultados_destino[i].nome);
 
     int opcao_resultado_destino = -1;
-    printf("\nEscolha um resultado: ");
+    printf("\nOrigem selecionada: %s\n", resultados_origem[opcao_resultado_origem].nome);
+    printf("Escolha um resultado: ");
     scanf("%d", &opcao_resultado_destino);
 
     // Tirar \n do buffer
     getchar();
+
+    // Limpar terminal
+    printf("\e[1;1H\e[2J");
 
     opcao_resultado_destino--;
     if (opcao_resultado_destino == -1 || opcao_resultado_destino >= quantidade_resultados) {
@@ -133,8 +143,16 @@ int main(int argc, char *argv[])
 
     Caminho caminho = construir_caminho_dijkstra(&vertices,
                                                  resultados_origem[opcao_resultado_origem].id,
+<<<<<<< HEAD
                                                  vertices.vertices[800].id,//resultados_destino[opcao_resultado_destino].id
+=======
+                                                 resultados_destino[opcao_resultado_destino].id,
+>>>>>>> c7ed0ad (Melhorar interface)
                                                  distancias);
+
+    printf("Caminho de %s a %s:\n\n",
+           resultados_origem[opcao_resultado_origem].nome,
+           resultados_destino[opcao_resultado_destino].nome);
 
     for (int i = vertices.quantidade - caminho.tamanho; i < vertices.quantidade - 1; i++) {
         Aresta aresta = aresta_rua(&vertices, caminho.caminho[i], caminho.caminho[i + 1]);
