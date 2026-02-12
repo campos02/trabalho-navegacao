@@ -133,7 +133,7 @@ int main(int argc, char *argv[])
 
     Caminho caminho = construir_caminho_dijkstra(&vertices,
                                                  resultados_origem[opcao_resultado_origem].id,
-                                                 vertices.vertices[800].id,//resultados_destino[opcao_resultado_destino].id,
+                                                 vertices.vertices[800].id,//resultados_destino[opcao_resultado_destino].id
                                                  distancias);
 
     for (int i = vertices.quantidade - caminho.tamanho; i < vertices.quantidade - 1; i++) {
