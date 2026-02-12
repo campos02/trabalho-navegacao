@@ -31,11 +31,11 @@ void inserir_heap(HeapMinimo *heap, uint64_t vertice, double distancia)
         heap->dados = (NoHeap *) realloc(heap->dados, heap->capacidade * sizeof(NoHeap));
     }
 
-    // Insere no final
+    // Inserir no final
     heap->dados[heap->tamanho].vertice = vertice;
     heap->dados[heap->tamanho].distancia = distancia;
 
-    // Sobe no heap (ajuste para cima)
+    // Subir no heap (ajuste para cima)
     int i = heap->tamanho;
     heap->tamanho++;
 
@@ -60,11 +60,11 @@ NoHeap extrair_minimo(HeapMinimo *heap)
     // O menor está na raiz (índice 0)
     NoHeap minimo = heap->dados[0];
 
-    // Move último elemento para a raiz
+    // Move ultimo elemento para a raiz
     heap->dados[0] = heap->dados[heap->tamanho - 1];
     heap->tamanho--;
 
-    // Ajusta para baixo (heapify) =  nao sei se é necessario
+    // Ajusta para baixo 
     int i = 0;
     while (1) {
         int menor = i;
