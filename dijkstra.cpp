@@ -233,11 +233,11 @@ Caminho construir_caminho_dijkstra(Vertices *vertices,
     return caminho;
 }
 
-Aresta aresta_rua(Vertices *vertices, uint64_t origem, uint64_t destino)
+Aresta aresta_rua (Vertices *vertices, uint64_t origem, uint64_t destino)
 {
     int indice_origem = indice_por_id(vertices, origem);
     for (int i = 0; i < vertices->vertices[indice_origem].quantidade_arestas; i++) {
-        if (vertices->vertices[indice_origem].arestas[i].destino == destino)
+        if (vertices -> vertices[indice_origem].arestas[i].destino == destino)
             return vertices->vertices[indice_origem].arestas[i];
     }
 
