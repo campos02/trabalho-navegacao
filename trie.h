@@ -24,13 +24,19 @@ typedef struct
     int total_palavras; // Para estatísticas
 } ArvoreTrie;
 
+typedef struct Resultado
+{
+    char *nome;
+    uint64_t id;
+} Resultado;
+
 ArvoreTrie *criar_trie(void);
 
 void inserir_na_trie(ArvoreTrie *trie,
                      const char *palavra,
                      uint64_t id); // Insere uma palavra na Trie com seu ID associado
 
-char **buscar_prefixo_trie(ArvoreTrie *trie, const char *prefixo, int *quantidade);
+Resultado *buscar_prefixo_trie(ArvoreTrie *trie, const char *prefixo, int *quantidade);
 
 uint64_t *buscar_ids_trie(
     ArvoreTrie *trie,

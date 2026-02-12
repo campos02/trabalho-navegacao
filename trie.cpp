@@ -74,19 +74,18 @@ void inserir_na_trie(ArvoreTrie *trie, const char *palavra, uint64_t id)
     adicionar_id(atual, id);
 }
 
-static void coletar_palavras(NoTrie *no,
-                             char *buffer,
-                             int profundidade,
-                             char **resultados,
-                             int *contador,
-                             int limite)
+static void coletar_palavras(
+    NoTrie *no, char *buffer, int profundidade, Resultado *resultados, int *contador, int limite)
 {
     if (!no || *contador >= limite)
         return;
 
     if (no->fim_da_palavra) {
         buffer[profundidade] = '\0';
-        resultados[*contador] = strdup(buffer);
+
+        // Como é o fim de uma palavra ela tem um ID só
+        resultados[*contador].id = no->ids[0];
+        resultados[*contador].nome = strdup(buffer);
         (*contador)++;
     }
 
@@ -103,7 +102,7 @@ static void coletar_palavras(NoTrie *no,
     }
 }
 
-char **buscar_prefixo_trie(ArvoreTrie *trie, const char *prefixo, int *quantidade)
+Resultado *buscar_prefixo_trie(ArvoreTrie *trie, const char *prefixo, int *quantidade)
 {
     if (!trie || !prefixo) {
         *quantidade = 0;
@@ -121,8 +120,8 @@ char **buscar_prefixo_trie(ArvoreTrie *trie, const char *prefixo, int *quantidad
         atual = atual->filhos[c];
     }
 
-    int limite = 20; // limite de sugestões
-    char **resultados = (char **) malloc(limite * sizeof(char *));
+    int limite = 10; // limite de sugestões
+    Resultado *resultados = (Resultado *) malloc(limite * sizeof(Resultado));
     char buffer[TAMANHO_MAX_NOME];
 
     strcpy(buffer, prefixo);
