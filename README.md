@@ -7,10 +7,7 @@ LARISSA GABRIELA BARROZO
 VINICIUS BOHM DE CAMPOS
 RAPHAEL AMBROSIO BEZERRA
 
-
-Instruções de como abrir e rodar o projeto no Qt Creator:
-
-Descrição resumida das estruturas:
+# Descrição resumida das estruturas
 
 vertice.cpp:
 
