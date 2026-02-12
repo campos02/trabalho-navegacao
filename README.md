@@ -37,8 +37,13 @@ Se houver colisão: divide o índice por 2 (tentativa de ajuste) e depois faz bu
 
 Complexidade: 
 Caso ideal (sem colisão): O(1)
+
 Caso médio ( Pequenas colisões) : O(k)
 Pior caso: O(n)
 
+# Rodando no Qt Creator
+1. Clonar o repositório com git
+2. No Qt Creator clicar em Open Project e dentro do diretório do projeto selecionar CMakeLists.txt
+3. Após configurar os kits habilitar a opção Run in Terminal e utilizar a ferramenta Run
 
 
