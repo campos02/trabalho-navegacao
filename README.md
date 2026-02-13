@@ -14,9 +14,9 @@ RAPHAEL AMBROSIO BEZERRA
 3. Após configurar os kits habilitar a opção Run in Terminal e utilizar a ferramenta Run
 
 
-Descrição resumida das estruturas:
+# Descrição resumida das estruturas:
 
-### vertice.cpp:
+## vertice.cpp:
 
 trecho codigo 1: 
 
@@ -192,6 +192,66 @@ Complexidade: O(k)
 
 
 ## dijkstra.cpp:
+
+trechos de HeapMinimo: Representa a fila de prioridade (min-heap) usada no Dijkstra.
+
+ HeapMinimo *heap = criar_heap(n); -> Complexidade O(n) 
+ 
+inserir_heap(heap, origem, 0.0); -> Insere no final e Sobe ajustando propriedade do heap. -> Complexidade O(log n)
+
+NoHeap atual_heap = extrair_minimo(heap);  ->  Complexidade O(log n)
+
+trecho distancia: 
+
+Distancia *distancias =
+    (Distancia *) malloc(n * sizeof(Distancia));
+
+distancias[i].distancia = INT_MAX / 2;
+distancias[i].predecessor = 0;
+
+onde: distancia → menor distância encontrada
+      predecessor → vértice anterior no caminho
+
+trecho codigo: Distancia *calcular_distancias_dijkstra(Vertices *vertices, uint64_t origem)
+
+* como é muito grande, não foi posta aqui:
+
+Objetivo: 
+Calcular a menor distância da origem para todos os outros vértices usando Dijkstra.
+Retorna um vetor Distancia onde, para cada vértice:
+distancia → menor custo encontrado
+predecessor → vértice anterior no menor caminho
+
+1. inicializa, Criando vetor de tamanho V (número de vértices).
+2. Todos começam como "não alcançados" e Marca origem com distância 0 (inserir_heap(heap, origem, 0.0);)
+3. Heap controla qual vértice será processado primeiro (menor distância).
+4. Enquanto existirem vértices para processar: Extrai menor distância com NoHeap atual_heap = extrair_minimo(heap);
+5. Marca como processado: processado[indice_atual] = 1;
+6. Relaxamento das arestas: for (int i = 0; i < quantidade_arestas; i++) e ve os vizinhos
+7. Se o novo caminho for menor: if (nova_distancia < distancias[indice_destino].distancia)
+8. Atualiza
+
+resumindo, a função devolve um vetor distancias onde:
+
+Para qualquer vértice X
+distancias[X].distancia → menor distância desde origem
+distancias[X].predecessor → vértice anterior no caminho ótimo
+
+Complexidade: O((V + E) log V)
+
+Trecho: construir_caminho_dijkstra
+
+Caminho construir_caminho_dijkstra(Vertices *vertices,
+                                   uint64_t origem,
+                                   uint64_t destino,
+                                   Distancia *distancias)
+                                   
+Objetivo: Reconstruir o caminho mínimo da origem até o destino, usando os predecessores calculados antes.
+
+
+
+
+
 
 
 
