@@ -301,10 +301,13 @@ for (int j = 0; j < quantidade_resultados; j++)
 
 # observação: 
 
- Lógica de exibição :
-  
-primary/secondary → Avenida
-resto → Rua
+```text
+Lógica de exibição:
+
+primary / secondary → Avenida
+resto               → Rua
+```
+
 
 ```c
 if (!strcmp(aresta.tipo, "primary") || !strcmp(aresta.tipo, "secondary"))
