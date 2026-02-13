@@ -37,9 +37,9 @@ int indice_por_id(Vertices *vertices, uint64_t id)
 ```
 
 Objetivo : Encontrar o índice do vértice no vetor a partir do id
-Calcula um índice inicial usando: id % quantidade e funciona como hash simples
-
-Se houver colisão: divide o índice por 2 (tentativa de ajuste) e depois faz busca linear até achar o id.
+- Calcula um índice inicial usando:  id % quantidade 
+- funciona como hash simples
+- Se houver colisão: divide o índice por 2 (tentativa de ajuste) e depois faz busca linear até achar o id.
 
 Complexidade: 
 Caso ideal (sem colisão): O(1)
@@ -48,7 +48,7 @@ Pior caso: O(n)
 
 ### TRIE.CPP
 
-trecho de codigo 1:
+trecho de codigo:
 
 ```c
 typedef struct NoTrie {
@@ -68,7 +68,7 @@ Complexidade:
 Acesso a filho por caractere: O(1)
 Inserção de id (amortizado): O(1)
 
-trecho codigo 2: arvore trie
+trecho codigo: arvore trie
 
 ```c
 typedef struct {
@@ -81,7 +81,7 @@ Objetivo: Representa a Trie inteira.
 raiz → ponto inicial da árvore.
 total_palavras → contador de nomes distintos inseridos.
 
-trecho codigo 3: criar nó
+trecho codigo: criar nó -> Complexidade: O(1)
 
 ```c
 static NoTrie *criar_no_trie(void)
@@ -100,9 +100,7 @@ static NoTrie *criar_no_trie(void)
 }
 ```
 
-Complexidade: O(256) → O(1)
-
-Trecho codigo 4: inserir em trie 
+Trecho codigo: inserir em trie 
 
 ```c
 void inserir_na_trie(ArvoreTrie *trie, const char *palavra, uint64_t id)
@@ -126,14 +124,15 @@ void inserir_na_trie(ArvoreTrie *trie, const char *palavra, uint64_t id)
 }
 ```
 
-Descrição
-Percorre caractere por caractere.
-Cria nós conforme necessário.
-Marca fim da palavra e Adiciona id ao vetor do nó final.
+Objetivo do codigo acima: 
+Percorrer caractere por caractere.
+Criar nós conforme necessário.
+Marcar fim da palavra e Adiciona id ao vetor do nó final.
 
 Complexidade: O(k) , onde k é tamanho da palavra
 
-trecho codigo: buscar prefixo
+trecho codigo:
+buscar prefixo:
 
 ```c
 Resultado *buscar_prefixo_trie(ArvoreTrie *trie,
@@ -171,12 +170,7 @@ Resultado *buscar_prefixo_trie(ArvoreTrie *trie,
 }
 ```
 
-Descrição: 
-Percorre o prefixo.
-Encontra o nó correspondente.
-Coleta até 10 sugestões.
-
-Trecho codigo: Busca de palavra completa na trie
+Trecho codigo: Busca de palavra completa na trie -> Complexidade: O(k)
 
 ```c
 uint64_t *buscar_ids_trie(ArvoreTrie *trie,
@@ -206,12 +200,11 @@ uint64_t *buscar_ids_trie(ArvoreTrie *trie,
 
 Objetivo: Percorre palavra completa. Se existir, retorna vetor interno de ids.
 
-Complexidade: O(k)
-
-
 ## dijkstra.cpp:
 
-trechos de HeapMinimo: Representa a fila de prioridade (min-heap) usada no Dijkstra.
+trechos de HeapMinimo:
+
+Representa a fila de prioridade (min-heap) usada no Dijkstra.
 
 ```c
 HeapMinimo *heap = criar_heap(n); -> Complexidade O(n) 
@@ -232,9 +225,11 @@ distancias[i].predecessor = 0;
 onde: distancia → menor distância encontrada
       predecessor → vértice anterior no caminho
 
+
 trecho codigo: Distancia *calcular_distancias_dijkstra(Vertices *vertices, uint64_t origem)
 
-* como é muito grande, não foi posta aqui:
+* como código é muito grande, não foi postado aqui.
+* Mas: 
 
 Objetivo: 
 Calcular a menor distância da origem para todos os outros vértices usando Dijkstra.
@@ -258,6 +253,7 @@ distancias[X].distancia → menor distância desde origem
 distancias[X].predecessor → vértice anterior no caminho ótimo
 
 Complexidade: O((V + E) log V)
+
 
 Trecho: construir_caminho_dijkstra
 
@@ -303,7 +299,9 @@ for (int j = 0; j < quantidade_resultados; j++)
     printf("%d. %s\n", j + 1, resultados_origem[j].nome);
 ```
 
-observação: Lógica de exibição : 
+# observação: 
+
+* Lógica de exibição : 
 primary/secondary → Avenida
 resto → Rua
 
@@ -318,13 +316,13 @@ else
         ↓
 [ Interface textual com Trie ]
         ↓
-[ Seleção origem ]
+   [ Seleção origem ]
         ↓
 [ Interface textual com Trie ]
         ↓
-[ Seleção destino ]
+  [ Seleção destino ]
         ↓
-[ Dijkstra ]
+     [ Dijkstra ]
         ↓
 [ Reconstrução caminho ]
         ↓
