@@ -7,7 +7,7 @@
 #include <QJsonObject>
 #include <QJsonParseError>
 #include <QDebug>
-// ===== Funções auxiliares =====
+//  Funções auxiliares 
 
 static NoTrie *criar_no_trie(void)
 {
@@ -37,7 +37,7 @@ static void adicionar_id(NoTrie *no, uint64_t id)
     no->ids[no->quantidade_ids++] = id;
 }
 
-// ===== API pública =====
+//API pública
 
 ArvoreTrie *criar_trie(void)
 {
@@ -121,6 +121,7 @@ Resultado *buscar_prefixo_trie(ArvoreTrie *trie, const char *prefixo, int *quant
     }
 
     int limite = 10; // limite de sugestões
+    
     Resultado *resultados = (Resultado *) malloc(limite * sizeof(Resultado));
     char buffer[TAMANHO_MAX_NOME];
 
