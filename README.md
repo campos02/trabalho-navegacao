@@ -307,7 +307,21 @@ else
 [ Liberação de memória ]
 
 
+## ler_dados.cpp: 
 
+Esse arquivo é responsável por:
+
+- Ler os arquivos JSON do mapa
+- Construir o grafo na memória
+- Preparar a estrutura para trie e Dijkstra
+
+* usa principalmente os dois arquivos:
+
+nodes.json → contém os vértices
+edges.json → contém as arestas
+
+
+# Nenhum dos arquivos .h foi explicado aqui , ja que servem para declarar estruturas, funções e outros que serão usados em outros arquivos .cpp.
 
 
 
