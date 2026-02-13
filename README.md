@@ -20,6 +20,7 @@ RAPHAEL AMBROSIO BEZERRA
 
 trecho codigo 1: 
 
+```c
 int indice_por_id(Vertices *vertices, uint64_t id)
 {
     int indice = id % vertices->quantidade;
@@ -33,6 +34,7 @@ int indice_por_id(Vertices *vertices, uint64_t id)
 
     return indice;
 }
+```
 
 Objetivo : Encontrar o índice do vértice no vetor a partir do id
 Calcula um índice inicial usando: id % quantidade e funciona como hash simples
@@ -48,6 +50,7 @@ Pior caso: O(n)
 
 trecho de codigo 1:
 
+```c
 typedef struct NoTrie {
     struct NoTrie *filhos[256];
     bool fim_da_palavra;
@@ -57,6 +60,7 @@ typedef struct NoTrie {
     int capacidade_ids;
 
 } NoTrie;
+```
 
 Objetivo: Representa um nó da Trie.
 
@@ -66,10 +70,12 @@ Inserção de id (amortizado): O(1)
 
 trecho codigo 2: arvore trie
 
+```c
 typedef struct {
     NoTrie *raiz;
     int total_palavras;
 } ArvoreTrie;
+```
 
 Objetivo: Representa a Trie inteira.
 raiz → ponto inicial da árvore.
@@ -77,6 +83,7 @@ total_palavras → contador de nomes distintos inseridos.
 
 trecho codigo 3: criar nó
 
+```c
 static NoTrie *criar_no_trie(void)
 {
     NoTrie *no = (NoTrie *) malloc(sizeof(NoTrie));
@@ -91,10 +98,13 @@ static NoTrie *criar_no_trie(void)
 
     return no;
 }
+```
+
 Complexidade: O(256) → O(1)
 
 Trecho codigo 4: inserir em trie 
 
+```c
 void inserir_na_trie(ArvoreTrie *trie, const char *palavra, uint64_t id)
 {
     NoTrie *atual = trie->raiz;
@@ -114,6 +124,8 @@ void inserir_na_trie(ArvoreTrie *trie, const char *palavra, uint64_t id)
     atual->fim_da_palavra = true;
     adicionar_id(atual, id);
 }
+```
+
 Descrição
 Percorre caractere por caractere.
 Cria nós conforme necessário.
@@ -123,6 +135,7 @@ Complexidade: O(k) , onde k é tamanho da palavra
 
 trecho codigo: buscar prefixo
 
+```c
 Resultado *buscar_prefixo_trie(ArvoreTrie *trie,
                                const char *prefixo,
                                int *quantidade)
@@ -156,6 +169,8 @@ Resultado *buscar_prefixo_trie(ArvoreTrie *trie,
 
     return resultados;
 }
+```
+
 Descrição: 
 Percorre o prefixo.
 Encontra o nó correspondente.
@@ -163,6 +178,7 @@ Coleta até 10 sugestões.
 
 Trecho codigo: Busca de palavra completa na trie
 
+```c
 uint64_t *buscar_ids_trie(ArvoreTrie *trie,
                           const char *palavra,
                           int *quantidade_ids)
@@ -186,6 +202,8 @@ uint64_t *buscar_ids_trie(ArvoreTrie *trie,
     *quantidade_ids = atual->quantidade_ids;
     return atual->ids;
 }
+```
+
 Objetivo: Percorre palavra completa. Se existir, retorna vetor interno de ids.
 
 Complexidade: O(k)
@@ -195,7 +213,8 @@ Complexidade: O(k)
 
 trechos de HeapMinimo: Representa a fila de prioridade (min-heap) usada no Dijkstra.
 
- HeapMinimo *heap = criar_heap(n); -> Complexidade O(n) 
+```c
+HeapMinimo *heap = criar_heap(n); -> Complexidade O(n) 
  
 inserir_heap(heap, origem, 0.0); -> Insere no final e Sobe ajustando propriedade do heap. -> Complexidade O(log n)
 
@@ -208,6 +227,7 @@ Distancia *distancias =
 
 distancias[i].distancia = INT_MAX / 2;
 distancias[i].predecessor = 0;
+```
 
 onde: distancia → menor distância encontrada
       predecessor → vértice anterior no caminho
@@ -241,10 +261,12 @@ Complexidade: O((V + E) log V)
 
 Trecho: construir_caminho_dijkstra
 
+```c
 Caminho construir_caminho_dijkstra(Vertices *vertices,
                                    uint64_t origem,
                                    uint64_t destino,
                                    Distancia *distancias)
+```
                                    
 Objetivo: Reconstruir o caminho mínimo da origem até o destino, usando os predecessores calculados antes.
 
@@ -263,10 +285,12 @@ observação: A interface é em terminal
 3. escolhe destino e usa da mesma logica e no final mostra os resultados com: resultados_destino[opcao_resultado_destino].id
 
 4. Dijkstra entra aqui :
- 
+
+```c
 Distancia *distancias
     = calcular_distancias_dijkstra(&vertices,
         resultados_origem[opcao_resultado_origem].id);
+```
 
 onde roda Dijkstra uma única vez a partir da origem, gerando um vetor: distancias[i]
 Que contém, para cada vértice: menor distância até ele e qual foi o vértice anterior no caminho
@@ -274,19 +298,21 @@ Que contém, para cada vértice: menor distância até ele e qual foi o vértice
 
 5.Exibição dos resultados:
 
+```c
 for (int j = 0; j < quantidade_resultados; j++)
     printf("%d. %s\n", j + 1, resultados_origem[j].nome);
+```
 
 observação: Lógica de exibição : 
 primary/secondary → Avenida
 resto → Rua
 
+```c
 if (!strcmp(aresta.tipo, "primary") || !strcmp(aresta.tipo, "secondary"))
     printf("Av. %s -> ", aresta.nome);
 else
     printf("R. %s -> ", aresta.nome);
-
- 
+```
 
 [ Carregamento de Dados ]
         ↓
@@ -320,8 +346,4 @@ Esse arquivo é responsável por:
 nodes.json → contém os vértices
 edges.json → contém as arestas
 
-
-# Nenhum dos arquivos .h foi explicado aqui , ja que servem para declarar estruturas, funções e outros que serão usados em outros arquivos .cpp.
-
-
-
+Nenhum dos arquivos .h foi explicado aqui , ja que servem para declarar estruturas, funções e outros que serão usados em outros arquivos .cpp.
