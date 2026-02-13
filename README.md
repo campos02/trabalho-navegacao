@@ -1,4 +1,4 @@
-# trabalho-navegacao
+# Sistema de Navegação Viária com Autocomplete e Caminho Mínimo
 
 Disciplina de Algoritmo de Estrutura de Dados II
 
