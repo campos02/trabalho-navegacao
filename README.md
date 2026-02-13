@@ -311,9 +311,34 @@ if (!strcmp(aresta.tipo, "primary") || !strcmp(aresta.tipo, "secondary"))
 else
     printf("R. %s -> ", aresta.nome);
 ```
-Coloque entre três crases ``` assim:
+```text
+Carregamento de Dados
+│
+▼
+Interface textual (Trie)
+│
+▼
+Seleção da origem
+│
+▼
+Interface textual (Trie)
+│
+▼
+Seleção do destino
+│
+▼
+Dijkstra
+│
+▼
+Reconstrução do caminho
+│
+▼
+Impressão formatada
+│
+▼
+Liberação de memória
+```
 
-<pre> ```text [ Carregamento de Dados ] ↓ [ Interface textual com Trie ] ↓ [ Seleção origem ] ↓ [ Interface textual com Trie ] ↓ [ Seleção destino ] ↓ [ Dijkstra ] ↓ [ Reconstrução caminho ] ↓ [ Impressão formatada ] ↓ [ Liberação de memória ] ``` </pre>
 
 ## ler_dados.cpp: 
 
