@@ -301,7 +301,8 @@ for (int j = 0; j < quantidade_resultados; j++)
 
 # observação: 
 
-* Lógica de exibição : 
+ Lógica de exibição :
+  
 primary/secondary → Avenida
 resto → Rua
 
@@ -311,6 +312,8 @@ if (!strcmp(aresta.tipo, "primary") || !strcmp(aresta.tipo, "secondary"))
 else
     printf("R. %s -> ", aresta.nome);
 ```
+
+Segue essa ideia: 
 ```text
 Carregamento de Dados
 │
