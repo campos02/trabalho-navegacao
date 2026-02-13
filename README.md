@@ -363,3 +363,7 @@ edges.json → contém as arestas
 # Observação:
 
 Nenhum dos arquivos .h foi explicado aqui , ja que servem para declarar estruturas, funções e outros que serão usados em outros arquivos .cpp.
+
+
+Observação:
+nem sempre o git funcionava, então alguns dos integrantes modificava diretamente no github.
