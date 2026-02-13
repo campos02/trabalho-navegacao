@@ -311,25 +311,9 @@ if (!strcmp(aresta.tipo, "primary") || !strcmp(aresta.tipo, "secondary"))
 else
     printf("R. %s -> ", aresta.nome);
 ```
+Coloque entre três crases ``` assim:
 
-[ Carregamento de Dados ]
-        ↓
-[ Interface textual com Trie ]
-        ↓
-   [ Seleção origem ]
-        ↓
-[ Interface textual com Trie ]
-        ↓
-  [ Seleção destino ]
-        ↓
-     [ Dijkstra ]
-        ↓
-[ Reconstrução caminho ]
-        ↓
-[ Impressão formatada ]
-        ↓
-[ Liberação de memória ]
-
+<pre> ```text [ Carregamento de Dados ] ↓ [ Interface textual com Trie ] ↓ [ Seleção origem ] ↓ [ Interface textual com Trie ] ↓ [ Seleção destino ] ↓ [ Dijkstra ] ↓ [ Reconstrução caminho ] ↓ [ Impressão formatada ] ↓ [ Liberação de memória ] ``` </pre>
 
 ## ler_dados.cpp: 
 
@@ -343,5 +327,8 @@ Esse arquivo é responsável por:
 
 nodes.json → contém os vértices
 edges.json → contém as arestas
+
+
+# Observação:
 
 Nenhum dos arquivos .h foi explicado aqui , ja que servem para declarar estruturas, funções e outros que serão usados em outros arquivos .cpp.
