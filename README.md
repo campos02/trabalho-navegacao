@@ -9,9 +9,8 @@ RAPHAEL AMBROSIO BEZERRA
 
 
 # Rodando no Qt Creator
-1. Clonar o repositório com git
-2. No Qt Creator clicar em Open Project e dentro do diretório do projeto selecionar CMakeLists.txt
-3. Após configurar os kits habilitar a opção Run in Terminal e utilizar a ferramenta Run
+1. No Qt Creator clicar em Open Project e dentro do diretório do projeto selecionar CMakeLists.txt
+2. Após configurar os kits habilitar a opção Run in Terminal e utilizar a ferramenta Run
 
 
 # Descrição resumida das estruturas:
