@@ -16,7 +16,7 @@ RAPHAEL AMBROSIO BEZERRA
 
 # Descrição resumida das estruturas:
 
-## vertice.cpp:
+# vertice.cpp:
 
 trecho codigo 1: 
 
