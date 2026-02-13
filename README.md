@@ -248,7 +248,32 @@ Caminho construir_caminho_dijkstra(Vertices *vertices,
                                    
 Objetivo: Reconstruir o caminho mínimo da origem até o destino, usando os predecessores calculados antes.
 
+## MAIN.CPP
 
+1. Carrega o grafo (vértices + arestas) e Monta a Trie com os nomes
+2. escolhe origem e usa buscar_prefixo_trie para então mostrar os resultados com: resultados_origem[opcao_resultado_origem].id, onde esse id é o índice do vértice no grafo.
+3. escolhe destino e usa da mesma logica e no final mostra os resultados com: resultados_destino[opcao_resultado_destino].id
+
+4. Dijkstra entra aqui :
+ 
+Distancia *distancias
+    = calcular_distancias_dijkstra(&vertices,
+        resultados_origem[opcao_resultado_origem].id);
+
+onde roda Dijkstra uma única vez a partir da origem, gerando um vetor: distancias[i]
+Que contém, para cada vértice: menor distância até ele e qual foi o vértice anterior no caminho
+
+5. usa de:
+
+ Caminho caminho = construir_caminho_dijkstra(
+    &vertices,
+    origem_id,
+    destino_id,
+    distancias
+);
+
+com objetivo de começar do destino e monta o caminho até a origem, retornando um vetor com os IDs dos vértices do caminho
+ 
 
 
 
