@@ -250,6 +250,14 @@ Objetivo: Reconstruir o caminho mínimo da origem até o destino, usando os pred
 
 ## MAIN.CPP
 
+O main está dividido em partes:
+- Inicialização dos dados
+- interface de busca da origem e seleção
+-interface de busca de destino
+- calculo e exibir caminho
+
+observação: A interface é em terminal
+
 1. Carrega o grafo (vértices + arestas) e Monta a Trie com os nomes
 2. escolhe origem e usa buscar_prefixo_trie para então mostrar os resultados com: resultados_origem[opcao_resultado_origem].id, onde esse id é o índice do vértice no grafo.
 3. escolhe destino e usa da mesma logica e no final mostra os resultados com: resultados_destino[opcao_resultado_destino].id
@@ -263,18 +271,40 @@ Distancia *distancias
 onde roda Dijkstra uma única vez a partir da origem, gerando um vetor: distancias[i]
 Que contém, para cada vértice: menor distância até ele e qual foi o vértice anterior no caminho
 
-5. usa de:
 
- Caminho caminho = construir_caminho_dijkstra(
-    &vertices,
-    origem_id,
-    destino_id,
-    distancias
-);
+5.Exibição dos resultados:
 
-com objetivo de começar do destino e monta o caminho até a origem, retornando um vetor com os IDs dos vértices do caminho
+for (int j = 0; j < quantidade_resultados; j++)
+    printf("%d. %s\n", j + 1, resultados_origem[j].nome);
+
+observação: Lógica de exibição : 
+primary/secondary → Avenida
+resto → Rua
+
+if (!strcmp(aresta.tipo, "primary") || !strcmp(aresta.tipo, "secondary"))
+    printf("Av. %s -> ", aresta.nome);
+else
+    printf("R. %s -> ", aresta.nome);
+
  
 
+[ Carregamento de Dados ]
+        ↓
+[ Interface textual com Trie ]
+        ↓
+[ Seleção origem ]
+        ↓
+[ Interface textual com Trie ]
+        ↓
+[ Seleção destino ]
+        ↓
+[ Dijkstra ]
+        ↓
+[ Reconstrução caminho ]
+        ↓
+[ Impressão formatada ]
+        ↓
+[ Liberação de memória ]
 
 
 
