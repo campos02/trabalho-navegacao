@@ -7,7 +7,7 @@ Disciplina de Algoritmo de Estrutura de Dados II
 - VINICIUS BOHM DE CAMPOS
 - RAPHAEL AMBROSIO BEZERRA
 
-##Estrutura do Grafo:
+## Estrutura do Grafo:
 - Representado por listas de adjacência
 - Direcionado e ponderado
 
