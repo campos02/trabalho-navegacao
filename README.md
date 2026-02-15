@@ -2,10 +2,27 @@
 
 Disciplina de Algoritmo de Estrutura de Dados II
 
-Alunos:
+## Alunos:
 LARISSA GABRIELA BARROZO
 VINICIUS BOHM DE CAMPOS
 RAPHAEL AMBROSIO BEZERRA
+
+##Estrutura do Grafo:
+- Representado por listas de adjacência
+- Direcionado e ponderado
+
+Algoritmo de Roteamento:
+- Dijkstra com fila de prioridade (heap)
+- Complexidade: O(E + V log V)
+
+Fluxo:
+Carregamento dos dados
+→ Seleção de origem por nome de rua
+→ Seleção de destino por nome de rua
+→ Execução do Dijkstra
+→ Reconstrução do caminho
+→ Impressão das ruas
+→ Liberação de memória
 
 
 # Rodando no Qt Creator
