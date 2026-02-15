@@ -3,9 +3,9 @@
 Disciplina de Algoritmo de Estrutura de Dados II
 
 ## Alunos:
-LARISSA GABRIELA BARROZO
-VINICIUS BOHM DE CAMPOS
-RAPHAEL AMBROSIO BEZERRA
+- LARISSA GABRIELA BARROZO
+- VINICIUS BOHM DE CAMPOS
+- RAPHAEL AMBROSIO BEZERRA
 
 ##Estrutura do Grafo:
 - Representado por listas de adjacência
