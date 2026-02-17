@@ -11,7 +11,8 @@
 
 int main(int argc, char *argv[])
 {
-    QFile file;
+
+     QFile file;
 
     Vertices vertices = ler_vertices(&file);
     ler_arestas(&vertices, &file);
@@ -19,6 +20,22 @@ int main(int argc, char *argv[])
     ArvoreTrie *trie = criar_trie();
     carregar_nodes_to_label(trie, &file);
 
+    int opcao_menu = 0;
+
+    do {
+    // Limpar terminal
+        printf("\e[1;1H\e[2J");
+
+        printf(" MENU: \n");
+        printf("1. Calcular rota\n");
+        printf("0. Sair\n");
+        printf("Escolha uma opcao: ");
+        scanf("%d", &opcao_menu);
+        getchar(); // limpar buffer
+
+       if (opcao_menu == 1) {
+
+           
     printf("Origem: ");
 
     Resultado *resultados_origem = NULL;
@@ -169,6 +186,17 @@ int main(int argc, char *argv[])
 
     liberar_trie(trie);
     liberar_vertices(&vertices);
+
+           printf("\nPressione Enter para voltar ao menu.");
+            getchar();
+}
+else if (opcao_menu == 0) {
+    break; // sair
+}
+else {
+    printf("Opcao invalida. Pressione Enter para continuar...");
+    getchar();
+}
 
     return 0;
 }
