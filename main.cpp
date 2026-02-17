@@ -11,8 +11,7 @@
 #endif
 
 int main(int argc, char *argv[]) {
-    // Nota: Certifique-se de que QFile e Vertices estejam definidos nos seus .h
-    // Se estiver usando C puro (não C++ com Qt), verifique se QFile não deveria ser FILE*
+   
     QFile file; 
 
     Vertices vertices = ler_vertices(&file);
